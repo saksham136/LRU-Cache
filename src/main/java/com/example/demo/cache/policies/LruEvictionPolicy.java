@@ -11,23 +11,24 @@ import java.util.Map;
 public class LruEvictionPolicy<Key> implements EvictionPolicy<Key> {
 
     private Dll<Key> dll;
-    private  Map<Key,DllNode<Key>> mapper;
+    private Map<Key, DllNode<Key>> mapper;
 
-public LruEvictionPolicy() {
-    this.dll = new Dll<>();
-    this.mapper = new HashMap<>();
-}
-
-@Override
-public void keyAccessed(Key key) {
-    if (mapper.containsKey(key)) {
-        dll.detachNode(mapper.get(key));
-        dll.addNodeAtLast(mapper.get(key));
-    } else {
-        DllNode<Key> newNode = dll.addElementAtLast(key);
-        mapper.put(key, newNode);
+    public LruEvictionPolicy() {
+        this.dll = new Dll<>();
+        this.mapper = new HashMap<>();
     }
-}
+
+    @Override
+    public void keyAccessed(Key key) {
+        if (mapper.containsKey(key)) {
+            dll.detachNode(mapper.get(key));
+            dll.addNodeAtLast(mapper.get(key));
+        } else {
+            DllNode<Key> newNode = dll.addElementAtLast(key);
+            mapper.put(key, newNode);
+        }
+    }
+
 
     @Override
     public Key evictKey() {
@@ -41,6 +42,7 @@ public void keyAccessed(Key key) {
 
     }
 }
+
 
 
 

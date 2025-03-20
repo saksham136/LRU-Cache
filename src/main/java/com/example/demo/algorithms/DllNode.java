@@ -3,13 +3,10 @@ package com.example.demo.algorithms;
 
 //import lombok.Getter;
 
-import lombok.Getter;
-
 //@Getter
 public class DllNode<E> {
     DllNode<E> prev;
     DllNode<E> next;
-    @Getter
     E element;
 
     public DllNode(E element) {
@@ -18,5 +15,8 @@ public class DllNode<E> {
         this.prev = null;
     }
 
+    public E getElement() {
+        return element;
+    }
 
 }
